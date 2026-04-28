@@ -680,7 +680,7 @@ class BlogApiHomeworkTest extends BaseAuthorizedApiTest {
                 .get("/api/files/{id}")
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(fileId))
+                .body("id", equalTo(Integer.parseInt(fileId)))
                 .body("url", notNullValue())
                 .body("filename", notNullValue())
                 .body("size", notNullValue())
