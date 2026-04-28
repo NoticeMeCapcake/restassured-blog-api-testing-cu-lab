@@ -1,23 +1,16 @@
 package ru.qa.blogapi.tests.ui;
 
-import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.qa.blogapi.base.BaseApiTest;
 import ru.qa.blogapi.base.BaseUiTest;
 import ru.qa.blogapi.pages.RegisterPage;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegisterUiTest extends BaseUiTest {
