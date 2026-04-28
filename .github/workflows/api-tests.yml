@@ -1,0 +1,67 @@
+name: API tests
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  smoke-tests:
+    runs-on: self-hosted
+    name: Smoke Tests
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Run smoke tests
+        env:
+          BASE_URL: http://10.125.0.19:8080
+        run: mvn clean test -Dgroups=smoke
+
+  regression-tests:
+    runs-on: self-hosted
+    name: Regression Tests
+    needs: smoke-tests
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Run regression tests
+        env:
+          BASE_URL: http://10.125.0.19:8080
+        run: mvn clean test -Dgroups=regression
+
+  e2e-tests:
+    runs-on: self-hosted
+    name: E2E Tests
+    needs: regression-tests
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Run E2E tests
+        env:
+          BASE_URL: http://10.125.0.19:8080
+        run: mvn clean test -Dgroups=e2e
